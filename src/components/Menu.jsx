@@ -24,8 +24,6 @@ const getCoffees = (temp) => {
           
         )}
       </ul>
-
-      
       }
     </article>
     );
