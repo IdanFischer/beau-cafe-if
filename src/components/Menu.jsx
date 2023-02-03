@@ -1,8 +1,11 @@
 import { useState } from "react";
+import './menu.css';
 
 export default function Menu() {
 const [coffees, setCoffees] = useState()
+const [message, setMessage] = useState('Welcome to the Beau Café')
 const getCoffees = (temp) => {
+  setMessage('Loading...')
   fetch(`https://api.sampleapis.com/coffee/${temp}`)
   .then(res => res.json())
   .then(setCoffees)
@@ -16,15 +19,18 @@ const getCoffees = (temp) => {
         <button onClick={() => getCoffees('iced')}>Iced Coffees</button>
       </div>
       {!coffees
-      ?<h2>Welcome to the Beau Café</h2>
-      : <ul>
+      ?<h2>{message}</h2>
+      : <section className="coffee-container">
         {coffees.map( coffee => (
-          <li key={coffee.id}>{coffee.title}</li>
-        )
-          
-        )}
-      </ul>
+          <div key={coffee.id} className="coffee-card">
+            <img src={coffee.image} alt={coffee.title} />
+            <h3>{coffee.title}</h3>
+            <p>{coffee.description}</p>
+          </div>
+        ) 
+      )}
+      </section>
       }
     </article>
-    );
+  );
 }
